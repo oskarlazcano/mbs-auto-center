@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 70" role="img" aria-label="MBS Auto Center">
+  <rect width="100" height="70" rx="10" fill="#0b0b0b"/>
+  <g fill="none" stroke="#f2c230" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M6 30v18M6 39h8"/>
+    <path d="M14 24h14v-7h-8v-6h28v6h-8v7h26l8 8h6v-8h8v34h-8v-8h-6l-10 11H30l-6-7H14z"/>
+  </g>
+  <text x="49" y="50" text-anchor="middle" font-family="'Barlow Condensed','Arial Narrow',Impact,sans-serif" font-weight="800" font-size="25" letter-spacing="1" fill="#f2c230">MBS</text>
+  <path d="M30 55c10-3 22-4 36-2" fill="none" stroke="#f2c230" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+</svg>

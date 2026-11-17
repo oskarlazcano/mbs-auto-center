@@ -2,22 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="color-scheme" content="light">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Auto Repair in Converse, TX | MBS Auto Center</title>
+<title>MBS Auto Center | Auto Repair in Converse, TX</title>
 <meta name="description" content="Auto repair in Converse, TX. Check engine diagnostics, brakes, oil changes, A/C, batteries, alignment and general mechanical repair. Rated 4.7 stars by 200+ customers. Call (210) 616-2037.">
 <meta name="theme-color" content="#0b0b0b">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MBS Auto Center">
-<meta property="og:title" content="Auto Repair in Converse, TX | MBS Auto Center">
+<meta property="og:title" content="MBS Auto Center | Auto Repair in Converse, TX">
 <meta property="og:description" content="Honest, affordable auto repair in Converse, TX. Diagnostics, brakes, oil changes, A/C and more. Call (210) 616-2037.">
 <meta property="og:image" content="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1200&h=630&q=80">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="img/logo.png">
+<link rel="icon" href="img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {
@@ -25,9 +25,10 @@
   "@type": "AutoRepair",
   "name": "MBS Auto Center",
   "telephone": "+1-210-616-2037",
-  "image": "img/logo.png",
+  "image": "img/logo.svg",
   "description": "Auto repair shop in Converse, TX offering check engine diagnostics, brakes, oil changes, A/C repair, batteries, alignment and general mechanical repair.",
   "address": {"@type": "PostalAddress","streetAddress": "9170 FM 78","addressLocality": "Converse","addressRegion": "TX","postalCode": "78109","addressCountry": "US"},
+  "geo": {"@type": "GeoCoordinates","latitude": 29.516114,"longitude": -98.308347},
   "openingHoursSpecification": [{"@type": "OpeningHoursSpecification","dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens": "08:00","closes": "19:00"}],
   "aggregateRating": {"@type": "AggregateRating","ratingValue": "4.7","reviewCount": "213"},
   "areaServed": ["Converse","Live Oak","Universal City","Kirby","Windcrest","Schertz","Cibolo","Selma","St. Hedwig","Randolph AFB","Northeast San Antonio"],
@@ -44,544 +45,598 @@
 </script>
 
 <style>
-:root{
-  --black:#0b0b0b; --coal:#141414; --coal-2:#1d1d1d; --line-dk:#2c2c2c;
-  --yellow:#f2c230; --yellow-2:#dcab12; --yellow-soft:#fff6d6;
-  --ink:#151515; --slate:#545454; --rule:#e6e3da; --tint:#f7f5ef;
-  --head:"Oswald","Arial Narrow",system-ui,sans-serif; --body:"Public Sans",system-ui,sans-serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:#fff;color:var(--ink);font:400 1.0625rem/1.65 var(--body);-webkit-font-smoothing:antialiased}
-img{max-width:100%;display:block}
-a{color:#8a6a00}
-:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
-.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;z-index:99;background:#fff;padding:.5rem .8rem}
-h1,h2,h3{font-family:var(--head);font-weight:700;line-height:1.08;margin:0;text-wrap:balance;text-transform:uppercase;letter-spacing:.01em}
-h2{font-size:clamp(2rem,3.6vw,2.85rem)}
-h3{font-size:1.4rem;font-weight:600}
-p{margin:0 0 1rem}
-.lede{font-size:1.15rem;color:var(--slate);max-width:62ch}
-.eyebrow{display:inline-block;font:600 .85rem var(--head);letter-spacing:.14em;text-transform:uppercase;color:var(--yellow-2);margin-bottom:.7rem}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:50px;padding:0 1.5rem;border-radius:4px;font:700 1rem var(--body);text-decoration:none;border:2px solid transparent;cursor:pointer;transition:background-color .15s}
-.btn svg{width:20px;height:20px;flex:none}
-.btn-go{background:var(--yellow);color:var(--black)}.btn-go:hover{background:var(--yellow-2)}
-.btn-dark{background:var(--black);color:var(--yellow)}.btn-dark:hover{background:var(--coal-2)}
-.btn-outline{border-color:#fff;color:#fff}.btn-outline:hover{background:rgba(255,255,255,.1)}
+  :root{
+    --ink:#0f0f0f; --ink-2:#181818; --ink-3:#262626;
+    --paper:#f4f1ea; --paper-2:#e8e2d6;
+    --yellow:#f2c230; --yellow-2:#d9a90f;
+    --muted:#8d8a85; --line:rgba(255,255,255,.12);
+    --display:'Barlow Condensed', Impact, sans-serif;
+    --body:'Barlow', system-ui, sans-serif;
+    --max:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--ink);color:#eee;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:var(--display);text-transform:uppercase;line-height:.95;letter-spacing:.5px}
+  .eyebrow{font-family:var(--display);font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--yellow);font-size:15px;display:flex;align-items:center;gap:12px}
+  .eyebrow::before{content:"";width:28px;height:3px;background:var(--yellow)}
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:1px;text-transform:uppercase;padding:15px 26px;border:2px solid var(--yellow);background:var(--yellow);color:var(--ink);transition:.2s;cursor:pointer}
+  .btn:hover{background:var(--yellow-2);border-color:var(--yellow-2)}
+  .btn.ghost{background:transparent;border-color:rgba(255,255,255,.4);color:#fff}
+  .btn.ghost:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+  .btn svg{width:18px;height:18px;flex:none}
 
-/* Utility bar + header */
-.util{background:var(--yellow);color:var(--black);font-size:.9rem;font-weight:600}
-.util .wrap{display:flex;justify-content:space-between;gap:1rem;min-height:38px;align-items:center;flex-wrap:wrap}
-.util a{color:var(--black);font-weight:800;text-decoration:none}
-@media (max-width:640px){.util .hide-sm{display:none}}
-.site-head{position:sticky;top:0;z-index:40;background:var(--black);border-bottom:1px solid var(--line-dk)}
-.site-head .wrap{display:flex;align-items:center;gap:1.6rem;height:88px}
-.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:#fff}
-.brand img{height:62px;width:auto;aspect-ratio:204/158;object-fit:cover;object-position:top}
-.brand span{font:700 1.35rem/1 var(--head);text-transform:uppercase;letter-spacing:.04em}
-.brand span b{color:var(--yellow);font-weight:700}
-.site-nav{display:flex;gap:1.5rem;margin-left:auto}
-.site-nav a{color:#e9e9e9;text-decoration:none;font-weight:600}
-.site-nav a:hover{color:var(--yellow)}
-.head-phone{color:var(--yellow);text-decoration:none;font:700 1.3rem var(--head);white-space:nowrap}
-@media (max-width:1060px){.site-nav{display:none}.head-phone{margin-left:auto}}
-@media (max-width:560px){.head-phone,.brand span{display:none}.site-head .btn{margin-left:auto;padding:0 1rem}.brand img{height:52px}.site-head .wrap{height:72px}}
+  /* Header */
+  .topbar{background:var(--yellow);color:var(--ink);font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:14px}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:36px}
+  header{position:sticky;top:0;z-index:50;background:rgba(15,15,15,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand svg{width:66px;height:46px;flex:none}
+  .brand-text{font-family:var(--display);font-weight:700;text-transform:uppercase;line-height:1;font-size:20px;letter-spacing:1px;border-left:2px solid var(--yellow);padding-left:14px}
+  .brand-text small{display:block;color:var(--muted);font-weight:600;font-size:12px;letter-spacing:2.5px;margin-top:4px}
+  .links{display:flex;gap:30px;align-items:center;font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:1.5px;font-size:16px}
+  .links a:not(.btn){opacity:.8}
+  .links a:not(.btn):hover{opacity:1;color:var(--yellow)}
+  .links .btn{padding:10px 18px;font-size:16px}
+  .menu{display:none;background:none;border:0;color:#fff;cursor:pointer}
 
-/* Hero */
-.hero{position:relative;color:#fff;background:var(--black) center/cover no-repeat;background-image:linear-gradient(90deg,rgba(11,11,11,.96) 0%,rgba(11,11,11,.85) 45%,rgba(11,11,11,.4) 100%),url("https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1800&q=75")}
-.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(-45deg,var(--yellow) 0 18px,var(--black) 18px 36px)}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:3rem;align-items:center;padding-top:72px;padding-bottom:86px}
-.hero h1{font-size:clamp(2.5rem,5.2vw,4.2rem)}
-.hero h1 em{font-style:normal;color:var(--yellow)}
-.hero .lede{color:#d4d4d4;margin:1.2rem 0 1.6rem}
-.hero-checks{list-style:none;padding:0;margin:0 0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:.55rem 1.4rem;font-weight:600}
-.hero-checks li,.checks li{position:relative;padding-left:1.9rem}
-.hero-checks li::before,.checks li::before{content:"";position:absolute;left:0;top:.2em;width:1.25rem;height:1.25rem;border-radius:50%;background:var(--yellow) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230b0b0b' stroke-width='3.5'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/68% no-repeat}
-.hero-actions{display:flex;flex-wrap:wrap;gap:.75rem}
-.rating{display:flex;align-items:center;gap:.7rem;margin-top:1.8rem;font-weight:600;color:#d4d4d4;flex-wrap:wrap}
-.rating a{color:#fff}
-.stars{display:inline-flex;gap:2px;color:var(--yellow)}
-.stars svg{width:20px;height:20px}
-@media (max-width:920px){.hero .wrap{grid-template-columns:1fr;padding-top:48px;padding-bottom:60px}.hero{background-image:linear-gradient(rgba(11,11,11,.9),rgba(11,11,11,.86)),url("https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=900&q=70")}}
-@media (max-width:480px){.hero-checks{grid-template-columns:1fr}}
+  /* Hero */
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent 0 46px,rgba(255,255,255,.022) 46px 48px);pointer-events:none}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding-top:80px;padding-bottom:96px;position:relative}
+  .hero h1{font-size:clamp(52px,7.2vw,100px);font-weight:800;margin:22px 0 24px}
+  .hero h1 em{font-style:normal;color:var(--yellow)}
+  .hero p.lead{font-size:19px;color:#c9c6c0;max-width:520px;margin-bottom:34px}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .rating{display:flex;align-items:center;gap:14px;margin-top:38px;flex-wrap:wrap}
+  .rating strong{font-family:var(--display);font-weight:800;font-size:44px;line-height:1;color:var(--yellow)}
+  .rating span{font-family:var(--display);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;font-size:15px;color:#bbb;line-height:1.3}
+  .stars{display:inline-flex;gap:3px;color:var(--yellow)}
+  .stars svg{width:18px;height:18px}
+  .hero-photos{display:grid;grid-template-columns:1fr 1fr;gap:14px;height:600px}
+  .hero-photos figure{overflow:hidden;position:relative;background:var(--ink-3)}
+  .hero-photos img{width:100%;height:100%;object-fit:cover}
+  .hero-photos figure:first-child{transform:translateY(40px)}
+  .hero-photos figure:last-child{transform:translateY(-20px)}
+  .hero-photos figcaption{position:absolute;left:0;bottom:0;background:var(--yellow);color:var(--ink);font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:6px 12px;font-size:14px}
 
-/* Appointment form */
-.quote{background:#fff;color:var(--ink);border-radius:8px;padding:1.6rem;box-shadow:0 24px 60px -16px rgba(0,0,0,.7);border-top:6px solid var(--yellow)}
-.quote h2{font-size:1.9rem}
-.quote > p{color:var(--slate);font-size:.95rem;margin:.35rem 0 1.1rem}
-.field{margin-bottom:.8rem}
-.pair{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-@media (max-width:420px){.pair{grid-template-columns:1fr}}
-label{display:block;font-weight:600;font-size:.86rem;margin-bottom:.3rem}
-input,select,textarea{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:#fff;border:1.5px solid #cfccc3;border-radius:5px;padding:.68rem .8rem}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--black);box-shadow:0 0 0 3px rgba(242,194,48,.45)}
-textarea{min-height:80px;resize:vertical}
-.quote .btn{width:100%}
-.quote small{display:block;text-align:center;color:var(--slate);margin-top:.75rem}
-.form-msg{display:none;margin-top:.8rem;padding:.7rem .9rem;border-radius:5px;background:#eaf6ec;color:#1d5f2b;font-weight:600}
-.form-msg.err{background:#fdecec;color:#9b1c1c}
+  /* Strip */
+  .strip{background:var(--yellow);color:var(--ink);overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--display);font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:2px}
+  .strip-track{display:inline-flex;gap:40px;animation:slide 30s linear infinite}
+  .strip-track span::after{content:"◆";margin-left:40px;font-size:12px;vertical-align:middle;opacity:.6}
+  @keyframes slide{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.strip-track{animation:none}}
 
-/* Trust strip */
-.trust{background:var(--coal);color:#fff;border-bottom:1px solid var(--line-dk)}
-.trust ul{list-style:none;margin:0;padding:1.2rem 0;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center;font-weight:700}
-.trust li{display:flex;align-items:center;justify-content:center;gap:.55rem}
-.trust svg{width:24px;height:24px;color:var(--yellow);flex:none}
-@media (max-width:820px){.trust ul{grid-template-columns:1fr 1fr;text-align:left}.trust li{justify-content:flex-start}}
+  section{padding:110px 0}
+  .head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:56px;flex-wrap:wrap}
+  .head h2{font-size:clamp(42px,5.5vw,72px);font-weight:800;margin-top:14px}
+  .head p{max-width:440px;color:#aaa}
 
-/* Sections */
-.block{padding:96px 0}
-.tint{background:var(--tint)}
-.dark{background:var(--black);color:#fff}
-.dark .lede,.dark p{color:#c9c9c9}
-.center{text-align:center}
-.center .lede{margin:0 auto}
-.sec-head{margin-bottom:3rem}
-.sec-head h2{margin-bottom:.9rem}
-@media (max-width:860px){.block{padding:68px 0}}
+  /* Services */
+  .services{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+  .svc{padding:36px 30px 40px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:background .25s;position:relative}
+  .svc::after{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:var(--yellow);transition:width .3s}
+  .svc:hover{background:var(--ink-2)}
+  .svc:hover::after{width:100%}
+  .svc .num{font-family:var(--display);font-weight:700;color:var(--yellow);font-size:16px;letter-spacing:2px}
+  .svc svg{width:44px;height:44px;margin:26px 0 22px;color:#fff}
+  .svc h3{font-size:28px;margin-bottom:12px}
+  .svc p{color:#a5a29c;font-size:15.5px}
 
-/* Services grid */
-.services{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
-@media (max-width:960px){.services{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.services{grid-template-columns:1fr}}
-.svc{background:#fff;border:1px solid var(--rule);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s,transform .15s}
-.svc:hover{border-color:var(--yellow);transform:translateY(-2px)}
-.svc img{width:100%;aspect-ratio:16/10;object-fit:cover;background:#2a2a2a}
-.svc .body{padding:1.4rem 1.4rem 1.6rem;display:flex;flex-direction:column;flex:1;border-top:4px solid var(--yellow)}
-.svc h3{margin-bottom:.5rem}
-.svc p{color:var(--slate);flex:1}
-.svc a.more{font-weight:700;text-decoration:none;color:var(--ink);border-bottom:2px solid var(--yellow);align-self:flex-start}
+  /* Feature (light) */
+  .feature{background:var(--paper);color:var(--ink)}
+  .feature-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+  .feature-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .feature-photos img{aspect-ratio:9/16;object-fit:cover;width:100%;background:var(--paper-2)}
+  .feature-photos img:nth-child(2){margin-top:50px}
+  .feature .eyebrow{color:#9a7400}.feature .eyebrow::before{background:var(--yellow-2)}
+  .feature h2{font-size:clamp(42px,5vw,66px);font-weight:800;margin:14px 0 24px}
+  .feature p{color:#4a4743;font-size:17.5px;margin-bottom:18px}
+  .checks{list-style:none;margin:30px 0 36px;display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
+  .checks li{display:flex;gap:14px;align-items:flex-start;font-weight:500}
+  .checks li::before{content:"";flex:none;width:20px;height:20px;margin-top:3px;background:var(--ink);clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0%,43% 62%)}
+  .feature .btn.ghost{color:var(--ink);border-color:var(--ink)}
+  .feature .btn.ghost:hover{background:var(--ink);color:#fff}
 
-/* Detail rows */
-.row{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.row + .row{margin-top:5.5rem}
-.row.flip .media{order:2}
-.row .media{position:relative}
-.row .media::before{content:"";position:absolute;inset:18px -18px -18px 18px;border:3px solid var(--yellow);border-radius:8px;z-index:0}
-.row.flip .media::before{inset:18px 18px -18px -18px}
-.row .media img{position:relative;z-index:1;border-radius:8px;width:100%;aspect-ratio:4/3;object-fit:cover;background:#2a2a2a}
-.row h2{margin-bottom:1rem}
-.checks{list-style:none;padding:0;margin:1.4rem 0 1.8rem;display:grid;grid-template-columns:1fr 1fr;gap:.6rem 1.4rem;font-weight:600}
-@media (max-width:860px){.row{grid-template-columns:1fr;gap:2.6rem}.row.flip .media{order:0}}
-@media (max-width:480px){.checks{grid-template-columns:1fr}}
+  /* Dash lights */
+  .lights{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .light{background:var(--ink-2);border:1px solid var(--line);padding:30px 26px 32px;position:relative}
+  .light .badge{position:absolute;top:18px;right:18px;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:12px;padding:3px 8px;border:1px solid currentColor}
+  .light.warn{color:var(--yellow)}.light.stop{color:#ff5a4e}
+  .light svg{width:52px;height:52px;margin-bottom:22px}
+  .light h3{font-size:26px;color:#fff;margin-bottom:10px}
+  .light p{color:#a5a29c;font-size:15.5px}
 
-/* Why us */
-.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4rem 2rem}
-@media (max-width:860px){.benefits{grid-template-columns:1fr 1fr}}
-@media (max-width:540px){.benefits{grid-template-columns:1fr}}
-.benefit .ic{width:56px;height:56px;border-radius:8px;background:var(--yellow);color:var(--black);display:grid;place-items:center;margin-bottom:1rem}
-.benefit .ic svg{width:28px;height:28px}
-.benefit h3{margin-bottom:.4rem}
-.benefit p{color:var(--slate);margin:0}
+  /* Process */
+  .process{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;counter-reset:s}
+  .step{border-top:3px solid var(--ink-3);padding-top:26px;position:relative}
+  .step::before{counter-increment:s;content:"0" counter(s);font-family:var(--display);font-weight:800;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.28);display:block;margin-bottom:14px}
+  .step::after{content:"";position:absolute;top:-3px;left:0;width:56px;height:3px;background:var(--yellow)}
+  .step h3{font-size:26px;margin-bottom:10px}
+  .step p{color:#a5a29c;font-size:15.5px}
 
-/* Dashboard lights */
-.lights{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
-@media (max-width:900px){.lights{grid-template-columns:1fr 1fr}}
-@media (max-width:480px){.lights{grid-template-columns:1fr}}
-.light{background:var(--coal);border:1px solid var(--line-dk);border-radius:8px;padding:1.4rem}
-.light svg{width:44px;height:44px;color:var(--yellow);margin-bottom:.8rem}
-.light.red svg{color:#ff5a4e}
-.light h3{color:#fff;font-size:1.2rem;margin-bottom:.35rem}
-.light p{margin:0;font-size:.96rem}
+  /* Reviews */
+  .reviews-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:center}
+  .score{border:1px solid var(--line);padding:40px;position:relative}
+  .score::after{content:"";position:absolute;top:-1px;left:-1px;width:80px;height:4px;background:var(--yellow)}
+  .score strong{display:block;font-family:var(--display);font-weight:800;font-size:clamp(96px,12vw,150px);line-height:.85;color:var(--yellow)}
+  .score .stars{margin:16px 0 10px}.score .stars svg{width:26px;height:26px}
+  .score p{color:#aaa;font-family:var(--display);text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
+  .why{display:grid;grid-template-columns:1fr 1fr;gap:34px 40px}
+  .why h3{font-size:26px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+  .why h3::before{content:"";width:12px;height:12px;background:var(--yellow);transform:rotate(45deg);flex:none}
+  .why p{color:#a5a29c;font-size:15.5px}
+  .review-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:56px}
+  .review{background:var(--ink-2);border:1px solid var(--line);border-left:3px solid var(--yellow);padding:28px}
+  .review blockquote{margin:14px 0 18px;color:#ddd}
+  .review figcaption{font-family:var(--display);text-transform:uppercase;letter-spacing:1px;font-weight:700}
+  .review figcaption span{display:block;color:var(--muted);font-size:13px;letter-spacing:1.5px}
+  .review-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
 
-/* Process */
-.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;counter-reset:s}
-@media (max-width:860px){.steps{grid-template-columns:1fr}}
-.steps li{counter-increment:s;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:1.8rem}
-.steps li::before{content:counter(s);display:grid;place-items:center;width:46px;height:46px;border-radius:6px;background:var(--black);color:var(--yellow);font:700 1.4rem var(--head);margin-bottom:1rem}
-.steps h3{margin-bottom:.4rem}
-.steps p{color:var(--slate);margin:0}
+  /* Visit */
+  .visit{border-top:1px solid var(--line)}
+  .area-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
+  .area-grid h2{font-size:clamp(42px,5.5vw,72px);font-weight:800;margin:14px 0 30px}
+  .info{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-bottom:34px}
+  .info h3{font-size:18px;letter-spacing:2px;color:var(--yellow);margin-bottom:10px}
+  .info p,.info a{color:#ddd}
+  .info a:hover{color:var(--yellow)}
+  .hours{width:100%;border-collapse:collapse;font-size:15.5px}
+  .hours td{padding:7px 0;border-bottom:1px solid var(--line);color:#bbb}
+  .hours td:last-child{text-align:right;color:#fff;font-weight:600}
+  .hours tr.today td{color:var(--yellow)}
+  .cities{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+  .cities span{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:1px;font-size:16px;padding:7px 14px;background:var(--ink-2);border:1px solid var(--line)}
+  .map{aspect-ratio:1/1;background:var(--ink-2);border:1px solid var(--line);position:relative;overflow:hidden}
+  .leaflet-container{background:#1b1b1b;font-family:var(--body)}
+  .dark-tiles{filter:invert(1) hue-rotate(180deg) grayscale(.85) brightness(.9) contrast(.95)}
+  .city-label{background:rgba(15,15,15,.9);border:0;border-left:3px solid var(--yellow);border-radius:0;color:#fff;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:13px;padding:3px 8px;box-shadow:none}
+  .city-label::before{display:none}
+  .city-label.shop{background:var(--yellow);color:var(--ink);border-left-color:var(--ink);font-size:15px}
+  .leaflet-control-attribution{background:rgba(15,15,15,.7)!important;color:#888!important}
+  .leaflet-control-attribution a{color:#bbb!important}
 
-/* Reviews */
-.big-rating{display:inline-flex;align-items:center;gap:1rem;margin-top:1.4rem;background:var(--coal);border:1px solid var(--line-dk);border-radius:8px;padding:1rem 1.4rem}
-.big-rating strong{font:700 3rem/1 var(--head);color:var(--yellow)}
-.big-rating .stars svg{width:24px;height:24px}
-.big-rating span{display:block;color:#c9c9c9;font-size:.92rem;text-align:left}
-.big-rating span.stars{display:inline-flex;color:var(--yellow)}
-.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.6rem;text-align:left}
-@media (max-width:900px){.reviews{grid-template-columns:1fr}}
-.review{margin:0;background:#fff;color:var(--ink);border-radius:8px;padding:1.5rem;display:flex;flex-direction:column;border-top:4px solid var(--yellow)}
-.review blockquote{margin:.8rem 0 1.1rem;flex:1}
-.review figcaption{font-weight:700}
-.review figcaption span{display:block;font-weight:500;color:var(--slate);font-size:.88rem}
-.review-links{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:2.4rem}
+  /* FAQ */
+  .faq{background:var(--paper);color:var(--ink)}
+  .faq .eyebrow{color:#9a7400}.faq .eyebrow::before{background:var(--yellow-2)}
+  .faq .head p{color:#5c5954}
+  .faq details{border-top:1px solid #d6cfc2}
+  .faq details:last-child{border-bottom:1px solid #d6cfc2}
+  .faq summary{list-style:none;cursor:pointer;padding:24px 50px 24px 0;position:relative;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:24px;line-height:1.15}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:34px;font-weight:600}
+  .faq details[open] summary::after{content:"−"}
+  .faq details p{color:#4a4743;font-size:17px;padding:0 0 26px;max-width:760px}
 
-/* Visit */
-.visit{display:grid;grid-template-columns:1fr 1.15fr;gap:2.4rem;align-items:stretch}
-@media (max-width:860px){.visit{grid-template-columns:1fr}}
-.visit-box{background:#fff;border:1px solid var(--rule);border-top:6px solid var(--yellow);border-radius:8px;padding:1.8rem}
-.visit-box h3{margin:1.4rem 0 .5rem;font-size:1.15rem}
-.visit-box h3:first-child{margin-top:0}
-.visit-box p{margin:0;color:var(--slate)}
-.hours{width:100%;border-collapse:collapse;font-size:.98rem}
-.hours td{padding:.35rem 0;border-bottom:1px solid var(--rule)}
-.hours td:last-child{text-align:right;font-weight:600}
-.hours tr.today td{color:var(--ink);font-weight:800}
-.area-list{display:flex;flex-wrap:wrap;gap:.45rem;list-style:none;margin:.3rem 0 0;padding:0}
-.area-list li{background:var(--yellow-soft);border:1px solid #f0dd9c;border-radius:4px;padding:.2rem .6rem;font-size:.9rem;font-weight:600}
-.map{border-radius:8px;overflow:hidden;min-height:380px;background:#ddd;border:1px solid var(--rule)}
-.map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
+  /* Contact */
+  .contact{background:var(--yellow);color:var(--ink);position:relative;overflow:hidden}
+  .contact::before{content:"";position:absolute;right:-120px;top:-60px;width:520px;height:520px;border:60px solid rgba(0,0,0,.06);transform:rotate(45deg)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;position:relative}
+  .contact h2{font-size:clamp(48px,6vw,84px);font-weight:800;margin:14px 0 22px}
+  .contact .eyebrow{color:var(--ink)}.contact .eyebrow::before{background:var(--ink)}
+  .contact p{font-size:18px;max-width:460px}
+  .phone{display:block;font-family:var(--display);font-weight:800;font-size:clamp(44px,5vw,64px);margin:32px 0 6px;letter-spacing:1px}
+  .phone:hover{text-decoration:underline;text-underline-offset:6px}
+  .contact small{font-size:15px;font-weight:500}
+  .socials{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+  .socials a{display:inline-flex;align-items:center;gap:10px;border:2px solid rgba(0,0,0,.55);padding:10px 16px;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+  .socials a:hover{border-color:var(--ink);background:rgba(0,0,0,.06)}
+  .socials svg{width:20px;height:20px}
+  form{background:var(--ink);color:#eee;padding:38px;display:grid;gap:16px;box-shadow:0 30px 60px rgba(0,0,0,.3)}
+  form h3{font-size:30px;margin-bottom:4px}
+  label{display:grid;gap:6px;font-family:var(--display);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;font-size:14px;color:#aaa}
+  input,select,textarea{font:inherit;font-family:var(--body);font-size:16px;text-transform:none;letter-spacing:0;color:#fff;background:var(--ink-2);border:1px solid var(--ink-3);padding:13px 14px;width:100%;border-radius:0}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--yellow)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  form .btn{justify-content:center;width:100%;margin-top:6px}
+  .form-note{font-size:13px;color:var(--muted)}
+  .form-note.err{color:#ff8a80}
 
-/* FAQ */
-.faq{max-width:860px;margin:0 auto}
-.faq details{background:#fff;border:1px solid var(--rule);border-radius:6px;margin-bottom:.7rem}
-.faq summary{list-style:none;cursor:pointer;padding:1.1rem 3rem 1.1rem 1.2rem;position:relative;font-weight:700;font-size:1.06rem}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";position:absolute;right:1.1rem;top:50%;transform:translateY(-50%);font:700 1.5rem/1 var(--body);color:var(--yellow-2)}
-.faq details[open] summary::after{content:"−"}
-.faq details p{color:var(--slate);padding:0 1.2rem 1.2rem;margin:0}
+  footer{background:#080808;padding:50px 0 34px;font-size:14px;color:var(--muted)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+  .foot-left{display:flex;gap:18px;align-items:center}
+  .foot-left svg{width:84px;height:59px;flex:none}
+  .foot-left strong{display:block;color:#fff;font-family:var(--display);font-size:20px;text-transform:uppercase;letter-spacing:1px}
+  .foot-left a:hover{color:var(--yellow)}
 
-/* CTA + footer */
-.cta{background:var(--yellow);color:var(--black)}
-.cta .wrap{display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;padding-top:60px;padding-bottom:60px}
-.cta h2{margin-bottom:.4rem}
-.cta p{margin:0;font-weight:500}
-.cta .acts{display:flex;gap:.75rem;flex-wrap:wrap}
-.cta .btn-outline{border-color:var(--black);color:var(--black)}.cta .btn-outline:hover{background:rgba(0,0,0,.08)}
-footer{background:var(--black);color:#a9a9a9;padding:56px 0 28px;font-size:.96rem}
-.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2.4rem}
-@media (max-width:860px){.foot{grid-template-columns:1fr 1fr}}
-@media (max-width:520px){.foot{grid-template-columns:1fr}}
-.foot .brand{margin-bottom:1rem}
-.foot h3{font:600 1.05rem var(--head);color:var(--yellow);margin-bottom:.8rem}
-.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
-.foot a{color:#fff;text-decoration:none}
-.foot a:hover{color:var(--yellow)}
-.legal{margin-top:2.4rem;padding-top:1.2rem;border-top:1px solid var(--line-dk);font-size:.86rem}
+  .callbar{display:none}
 
-.callbar{display:none}
-@media (max-width:760px){
-  .callbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:50;box-shadow:0 -6px 20px rgba(0,0,0,.3)}
-  .callbar a{display:flex;align-items:center;justify-content:center;gap:.5rem;min-height:58px;font-weight:700;text-decoration:none}
-  .callbar a:first-child{background:var(--black);color:var(--yellow)}
-  .callbar a:last-child{background:var(--yellow);color:var(--black)}
-  .callbar svg{width:20px;height:20px}
-  body{padding-bottom:58px}
-}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s, transform .8s}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+  /* Responsive */
+  @media (max-width:1000px){
+    .lights,.steps{grid-template-columns:repeat(2,1fr)}
+    .services{grid-template-columns:repeat(2,1fr)}
+    .hero-grid,.feature-grid,.area-grid,.contact-grid,.reviews-grid{grid-template-columns:1fr;gap:50px}
+    .hero-photos{height:480px}
+    .links{gap:22px}
+  }
+  @media (max-width:900px){
+    .links{display:none;position:absolute;top:78px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--ink);border-bottom:1px solid var(--line)}
+    .links.open{display:flex}
+    .links a{padding:16px 24px;border-top:1px solid var(--line)}
+    .links .btn{margin:16px 24px;justify-content:center}
+    .menu{display:block}
+  }
+  @media (max-width:760px){
+    section{padding:76px 0}
+    .wrap{padding:0 16px}
+    .topbar .hide-sm{display:none}
+    .hero-grid{padding-top:50px;padding-bottom:70px}
+    .hero-photos{height:380px}
+    .services,.steps,.lights,.why,.review-list,.info{grid-template-columns:1fr}
+    .checks{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr}
+    form{padding:26px}
+    .score{padding:30px}
+    .brand-text small{display:none}
+    .callbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:18px}
+    .callbar a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:58px}
+    .callbar a:first-child{background:var(--ink);color:var(--yellow);border-top:1px solid var(--line)}
+    .callbar a:last-child{background:var(--yellow);color:var(--ink)}
+    .callbar svg{width:20px;height:20px}
+    body{padding-bottom:58px}
+  }
+  @media (max-width:420px){.brand-text{font-size:17px;padding-left:10px}.brand svg{width:56px;height:39px}}
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
+
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></symbol>
-  <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/></symbol>
+  <symbol id="logo" viewBox="0 0 100 70">
+    <rect width="100" height="70" rx="10" fill="#0b0b0b"/>
+    <g fill="none" stroke="#f2c230" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M6 30v18M6 39h8"/>
+      <path d="M14 24h14v-7h-8v-6h28v6h-8v7h26l8 8h6v-8h8v34h-8v-8h-6l-10 11H30l-6-7H14z"/>
+    </g>
+    <text x="49" y="50" text-anchor="middle" font-family="'Barlow Condensed','Arial Narrow',Impact,sans-serif" font-weight="800" font-size="25" letter-spacing="1" fill="#f2c230">MBS</text>
+    <path d="M30 55c10-3 22-4 36-2" fill="none" stroke="#f2c230" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+  </symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></symbol>
-  <symbol id="i-wrench" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M14.5 4a5 5 0 0 0-4.6 6.9L3.5 17.3a1.8 1.8 0 0 0 2.6 2.6l6.4-6.4A5 5 0 0 0 19.4 9l-3 1-2.4-2.4 1-3a5 5 0 0 0-.5-.6z"/></symbol>
-  <symbol id="i-engine" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 8h3V6h5v2h2l2 2h2v6h-2l-2 2h-6l-2-2H6v-2H3v-4h3zM3 10v4"/></symbol>
-  <symbol id="i-tag" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 12V4h8l10 10-8 8zM7.5 7.5h.01"/></symbol>
-  <symbol id="i-flag" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
-  <symbol id="i-clock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM12 7v5l3 2"/></symbol>
-  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4z"/></symbol>
-  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM8.5 12l2.5 2.5 4.5-5"/></symbol>
-  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12zM12 6.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/></symbol>
-  <symbol id="i-oil" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" d="M6 18l6 3h6v-4h6v4h6l10-5 4 2-11 13H12V21M40 26c0 2 1.5 3 1.5 4.5a1.5 1.5 0 0 1-3 0C38.5 29 40 28 40 26z"/></symbol>
-  <symbol id="i-battery" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" d="M6 14h36v24H6zM12 14v-4h6v4M30 14v-4h6v4M12 25h6M33 22v6M30 25h6"/></symbol>
-  <symbol id="i-temp" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M24 6v24M24 30a5 5 0 1 0 .01 0M24 12h6M24 18h6M24 24h6M6 40c3-2 6 2 9 0s6 2 9 0 6 2 9 0 6 2 9 0"/></symbol>
-  <symbol id="i-brake" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M24 12a12 12 0 1 1 0 24 12 12 0 0 1 0-24zM24 18v8M24 30v.5M9 13a20 20 0 0 0 0 22M39 13a20 20 0 0 1 0 22"/></symbol>
-  <symbol id="i-check" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" d="M4 20h4v-4h6v-3h12v3h6l4 4h3v-3h5v16h-5v-3h-3l-5 5H14l-3-3H8v-5H4z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-engine" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" d="M4 20v12M4 26h5M9 17h8v-4h-5V9h16v4h-5v4h14l5 5h3v-5h5v22h-5v-5h-3l-6 7H17l-4-4H9z"/></symbol>
+  <symbol id="i-brake" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="5"/><path d="M24 8v4M24 36v4M8 24h4M36 24h4"/><path d="M33 9.5a17 17 0 0 1 6 6.5l-5 3"/></g></symbol>
+  <symbol id="i-oil" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" d="M6 20l6 3h6v-4h6v4h6l10-5 4 2-11 13H12V23M40 28c0 2 1.6 3 1.6 4.6a1.6 1.6 0 0 1-3.2 0C38.4 31 40 30 40 28zM21 19v-4h-4M21 15h6"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M24 4v40M6.7 14l34.6 20M6.7 34l34.6-20M19 8l5 5 5-5M19 40l5-5 5 5M8 21l7-2-2-7M40 27l-7 2 2 7M8 27l7 2-2 7M40 21l-7-2 2-7"/></symbol>
+  <symbol id="i-battery" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" d="M5 14h38v26H5zM11 14v-4h7v4M30 14v-4h7v4M11 26h7M33 22v8M29 26h8"/></symbol>
+  <symbol id="i-wheel" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="4"/><path d="M24 20V6M27.5 26l12 7M20.5 26l-12 7"/></g></symbol>
+  <symbol id="i-temp" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M24 6v22M24 28a5 5 0 1 0 .01 0M24 11h7M24 17h7M24 23h7M6 40c3-2 6 2 9 0s6 2 9 0 6 2 9 0 6 2 9 0"/></symbol>
 </svg>
 
-<div class="util"><div class="wrap">
-  <span class="hide-sm">Auto repair in Converse, TX &middot; <span data-hours-short>Mon–Sat 8am–7pm</span></span>
-  <span>Call: <a href="tel:+12106162037">(210) 616-2037</a></span>
+<div class="topbar"><div class="wrap">
+  <span class="hide-sm">Converse, TX · <span data-hours-short>Mon–Sat 8am–7pm</span></span>
+  <a href="tel:+12106162037">Call (210) 616-2037</a>
 </div></div>
 
-<header class="site-head"><div class="wrap">
-  <a class="brand" href="#top"><img src="img/logo.png" alt="MBS Auto Center logo" width="70" height="66"><span>MBS <b>Auto Center</b></span></a>
-  <nav class="site-nav" aria-label="Main">
-    <a href="#services">Services</a><a href="#why">Why MBS</a><a href="#reviews">Reviews</a><a href="#visit">Hours & Location</a><a href="#faq">FAQ</a>
-  </nav>
-  <a class="head-phone" href="tel:+12106162037">(210) 616-2037</a>
-  <a class="btn btn-go" href="#quote">Book Service</a>
-</div></header>
-
-<main id="main">
-<section class="hero" id="top">
-  <div class="wrap">
-    <div>
-      <span class="eyebrow">Converse, TX auto repair</span>
-      <h1>Check engine light on? <em>We'll find out why.</em></h1>
-      <p class="lede">Diagnostics, brakes, oil changes, A/C and general mechanical repair for cars and trucks. Fair prices, quick turnaround, and a straight answer before any work starts.</p>
-      <ul class="hero-checks">
-        <li>Price approved before we start</li>
-        <li>Quick scheduling</li>
-        <li>Cars, trucks and SUVs</li>
-        <li>Military discount available</li>
-      </ul>
-      <div class="hero-actions">
-        <a class="btn btn-go" href="#quote"><svg><use href="#i-cal"/></svg>Book an Appointment</a>
-        <a class="btn btn-outline" href="tel:+12106162037"><svg><use href="#i-phone"/></svg>(210) 616-2037</a>
-      </div>
-      <div class="rating">
-        <span class="stars" role="img" aria-label="4.7 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
-        <span>4.7 stars from 200+ customers &middot; <a href="#reviews">Read reviews</a></span>
-      </div>
-    </div>
-
-    <form class="quote" id="quote" novalidate>
-      <h2>Request Service</h2>
-      <p>Tell us what's going on and we'll call you back with a time and a price.</p>
-      <div class="pair">
-        <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required></div>
-        <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
-      </div>
-      <div class="field"><label for="f-car">Year, make and model</label><input id="f-car" name="vehicle" placeholder="e.g. 2016 Chevy Silverado"></div>
-      <div class="field"><label for="f-svc">What do you need?</label>
-        <select id="f-svc" name="service">
-          <option>Check engine light / diagnostics</option><option>Brakes</option><option>Oil change / maintenance</option>
-          <option>A/C not blowing cold</option><option>Battery, starting or electrical</option><option>Alignment, steering or suspension</option>
-          <option>Engine or transmission problem</option><option>Something else</option>
-        </select></div>
-      <div class="field"><label for="f-notes">Describe the problem (optional)</label><textarea id="f-notes" name="details" placeholder="Noises, warning lights, when it happens..."></textarea></div>
-      <button class="btn btn-go" type="submit">Request My Appointment</button>
-      <div class="form-msg" id="form-msg" role="status"></div>
-      <small>Rather talk? Call <a href="tel:+12106162037">(210) 616-2037</a></small>
-    </form>
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand" aria-label="MBS Auto Center home">
+      <svg aria-hidden="true"><use href="#logo"/></svg>
+      <span class="brand-text">MBS Auto Center<small>Auto Repair · Converse, TX</small></span>
+    </a>
+    <nav class="links" id="links">
+      <a href="#services">Services</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Hours &amp; Location</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="btn">Book Service</a>
+    </nav>
+    <button class="menu" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
   </div>
-</section>
+</header>
 
-<section class="trust" aria-label="Why drivers choose us">
-  <div class="wrap"><ul>
-    <li><svg><use href="#i-star"/></svg>4.7-star rated shop</li>
-    <li><svg><use href="#i-tag"/></svg>Fair, upfront pricing</li>
-    <li><svg><use href="#i-clock"/></svg>Fast turnaround</li>
-    <li><svg><use href="#i-flag"/></svg>Military discount</li>
-  </ul></div>
-</section>
-
-<section class="block" id="services">
-  <div class="wrap">
-    <div class="sec-head center">
-      <span class="eyebrow">What we fix</span>
-      <h2>Auto Repair Services in Converse</h2>
-      <p class="lede">From a warning light to a full repair, one local shop for the work your vehicle needs.</p>
+<main id="top">
+  <section class="hero" style="padding:0">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <div class="eyebrow">Auto repair · Converse, TX</div>
+        <h1>Check engine light on? <em>We'll find out why.</em></h1>
+        <p class="lead">Diagnostics, brakes, oil changes, A/C and general mechanical repair for cars, trucks and SUVs. Fair prices, quick turnaround, and a straight answer before any work starts.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn">Book Service <svg><use href="#i-arrow"/></svg></a>
+          <a href="tel:+12106162037" class="btn ghost"><svg><use href="#i-phone"/></svg>(210) 616-2037</a>
+        </div>
+        <a class="rating" href="#reviews">
+          <strong>4.7</strong>
+          <span><span class="stars" role="img" aria-label="4.7 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><br>From 200+ customer reviews</span>
+        </a>
+      </div>
+      <div class="hero-photos reveal">
+        <figure><img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=700&h=1100&q=75" alt="Technician inspecting an engine under the hood"><figcaption>Diagnostics</figcaption></figure>
+        <figure><img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=700&h=1100&q=75" alt="Mechanic working on an engine with a wrench"><figcaption>Mechanical repair</figcaption></figure>
+      </div>
     </div>
-    <div class="services">
-      <article class="svc"><img loading="lazy" src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=800&h=500&q=75" alt="Engine bay of a car being diagnosed"><div class="body"><h3>Check Engine & Diagnostics</h3><p>We read the codes and test the system to find the real cause, so you only pay to fix what's actually wrong.</p><a class="more" href="#quote">Book diagnostics</a></div></article>
-      <article class="svc"><img loading="lazy" src="https://images.unsplash.com/photo-1613214149922-f1809c99b414?auto=format&fit=crop&w=800&h=500&q=75" alt="Mechanic removing a wheel to service brakes"><div class="body"><h3>Brake Repair</h3><p>Squealing, grinding or a soft pedal. Pads, rotors, calipers and brake fluid, checked and replaced as needed.</p><a class="more" href="#quote">Book brake service</a></div></article>
-      <article class="svc"><img loading="lazy" src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=800&h=500&q=75" alt="Mechanic pouring fresh oil into an engine"><div class="body"><h3>Oil Changes & Maintenance</h3><p>Oil and filter changes, fluids, belts and the scheduled maintenance that keeps your vehicle on the road.</p><a class="more" href="#quote">Book an oil change</a></div></article>
-      <article class="svc"><img loading="lazy" src="https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&h=500&q=75" alt="Technician working under the hood"><div class="body"><h3>A/C Repair</h3><p>Texas heat is no time for warm air. We find leaks and failed parts and get your A/C blowing cold again.</p><a class="more" href="#quote">Book A/C service</a></div></article>
-      <article class="svc"><img loading="lazy" src="https://images.unsplash.com/photo-1504222490345-c075b6008014?auto=format&fit=crop&w=800&h=500&q=75" alt="Mechanic next to a yellow vehicle with the hood open"><div class="body"><h3>Batteries & Electrical</h3><p>No-starts, dead batteries, alternators, starters and electrical problems tracked down and fixed.</p><a class="more" href="#quote">Book electrical service</a></div></article>
-      <article class="svc"><img loading="lazy" src="https://images.unsplash.com/photo-1578844251758-2f71da64c96f?auto=format&fit=crop&w=800&h=500&q=75" alt="Stack of tires in the shop"><div class="body"><h3>Alignment & Suspension</h3><p>Pulling, shaking or uneven tire wear. Alignment, steering and suspension work so it drives straight again.</p><a class="more" href="#quote">Book alignment</a></div></article>
+  </section>
+
+  <div class="strip" aria-hidden="true">
+    <div class="strip-track">
+      <span>Check Engine Diagnostics</span><span>Brakes</span><span>Oil Changes</span><span>A/C Repair</span><span>Batteries &amp; Electrical</span><span>Alignment</span><span>Military Discount</span>
+      <span>Check Engine Diagnostics</span><span>Brakes</span><span>Oil Changes</span><span>A/C Repair</span><span>Batteries &amp; Electrical</span><span>Alignment</span><span>Military Discount</span>
     </div>
   </div>
-</section>
 
-<section class="block dark">
-  <div class="wrap">
-    <div class="sec-head center">
-      <span class="eyebrow">Know your dash</span>
-      <h2>What That Warning Light Means</h2>
-      <p class="lede">Some lights can wait a day. Some mean pull over now. When in doubt, call us.</p>
+  <section id="services">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><div class="eyebrow">What we fix</div><h2>Honest repairs.<br>Fair prices.</h2></div>
+        <p>From a warning light to a full repair, one local shop for the work your vehicle needs. We diagnose first and you approve the price before we start.</p>
+      </div>
+      <div class="services reveal">
+        <article class="svc"><div class="num">01</div><svg><use href="#i-engine"/></svg><h3>Check Engine &amp; Diagnostics</h3><p>We read the codes and test the system to find the real cause, so you only pay to fix what's actually wrong.</p></article>
+        <article class="svc"><div class="num">02</div><svg><use href="#i-brake"/></svg><h3>Brake Repair</h3><p>Squealing, grinding or a soft pedal. Pads, rotors, calipers and fluid, checked and replaced as needed.</p></article>
+        <article class="svc"><div class="num">03</div><svg><use href="#i-oil"/></svg><h3>Oil Changes &amp; Maintenance</h3><p>Oil and filter, fluids, belts and the scheduled maintenance that keeps your vehicle on the road.</p></article>
+        <article class="svc"><div class="num">04</div><svg><use href="#i-snow"/></svg><h3>A/C Repair</h3><p>Texas heat is no time for warm air. We find leaks and failed parts and get it blowing cold again.</p></article>
+        <article class="svc"><div class="num">05</div><svg><use href="#i-battery"/></svg><h3>Batteries &amp; Electrical</h3><p>No-starts, dead batteries, alternators, starters and electrical problems tracked down and fixed.</p></article>
+        <article class="svc"><div class="num">06</div><svg><use href="#i-wheel"/></svg><h3>Alignment &amp; Suspension</h3><p>Pulling, shaking or uneven tire wear. Alignment, steering and suspension so it drives straight again.</p></article>
+      </div>
     </div>
-    <div class="lights">
-      <div class="light"><svg><use href="#i-check"/></svg><h3>Check engine</h3><p>Steady: get it checked soon. Flashing: stop driving and call, it can damage the catalytic converter.</p></div>
-      <div class="light red"><svg><use href="#i-oil"/></svg><h3>Oil pressure</h3><p>Pull over and shut the engine off. Driving on low oil pressure can ruin an engine fast.</p></div>
-      <div class="light red"><svg><use href="#i-temp"/></svg><h3>Engine temperature</h3><p>Overheating. Pull over, let it cool, and don't open a hot radiator cap.</p></div>
-      <div class="light"><svg><use href="#i-battery"/></svg><h3>Battery / charging</h3><p>Your battery or alternator isn't charging. You may have limited time before it won't start.</p></div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="block tint">
-  <div class="wrap">
-    <div class="row">
-      <div class="media"><img loading="lazy" src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=1000&h=750&q=75" alt="Mechanic working on an engine with a wrench"></div>
-      <div>
-        <span class="eyebrow">General mechanical repair</span>
-        <h2>Real Answers, Not Guesswork</h2>
-        <p>We diagnose first, then call you with what we found, what it'll cost and what can wait. No work happens until you say yes, and we'll show you the old parts if you want to see them.</p>
+  <section class="feature" id="about">
+    <div class="wrap feature-grid">
+      <div class="feature-photos reveal">
+        <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=500&h=890&q=75" alt="Fresh oil being poured into an engine" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=500&h=890&q=75" alt="Technician working under the hood" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1613214149922-f1809c99b414?auto=format&fit=crop&w=500&h=890&q=75" alt="Removing a wheel with an impact wrench" loading="lazy">
+      </div>
+      <div class="reveal">
+        <div class="eyebrow">Why MBS</div>
+        <h2>Real answers.<br>Not guesswork.</h2>
+        <p>We diagnose first, then call you with what we found, what it costs and what can wait. No work happens until you say yes.</p>
+        <p>Customers tell us they save real money compared to dealers and chain shops, and get their car back fast. And if you've served, ask about our military discount.</p>
         <ul class="checks">
-          <li>Engine repair</li><li>Cooling system</li><li>Belts and hoses</li><li>Starters and alternators</li><li>Steering and suspension</li><li>Fluids and filters</li><li>Pre-trip inspections</li><li>Cars, trucks and SUVs</li>
+          <li>Price approved before we start</li>
+          <li>Quick scheduling and turnaround</li>
+          <li>Cars, trucks and SUVs</li>
+          <li>Military discount available</li>
         </ul>
-        <a class="btn btn-dark" href="#quote">Book an Appointment</a>
+        <a href="#contact" class="btn ghost">Book an appointment</a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="block" id="why">
-  <div class="wrap">
-    <div class="sec-head center">
-      <span class="eyebrow">Why MBS</span>
-      <h2>Why Converse Drivers Choose Us</h2>
-      <p class="lede">A neighborhood shop that treats your car, and your budget, like it was our own.</p>
-    </div>
-    <div class="benefits">
-      <div class="benefit"><div class="ic"><svg><use href="#i-tag"/></svg></div><h3>Fair prices</h3><p>Customers tell us they save real money compared to dealers and chain shops, without cutting corners.</p></div>
-      <div class="benefit"><div class="ic"><svg><use href="#i-clock"/></svg></div><h3>Quick turnaround</h3><p>Easy scheduling and quick repairs, so you're not without a vehicle longer than you have to be.</p></div>
-      <div class="benefit"><div class="ic"><svg><use href="#i-chat"/></svg></div><h3>Straight talk</h3><p>We explain what's wrong in plain English and give you the price before we pick up a wrench.</p></div>
-      <div class="benefit"><div class="ic"><svg><use href="#i-flag"/></svg></div><h3>Military discount</h3><p>Minutes from Randolph. Thank you for your service, ask about our discount when you book.</p></div>
-      <div class="benefit"><div class="ic"><svg><use href="#i-wrench"/></svg></div><h3>Experienced techs</h3><p>From diagnostics to mechanical repair, the work is done right the first time.</p></div>
-      <div class="benefit"><div class="ic"><svg><use href="#i-pin"/></svg></div><h3>Local to Converse</h3><p>Right on FM 78, easy to reach from Converse, Live Oak, Universal City and northeast San Antonio.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="block tint">
-  <div class="wrap">
-    <div class="sec-head center">
-      <span class="eyebrow">How it works</span>
-      <h2>Getting Your Car Fixed Is Easy</h2>
-    </div>
-    <ol class="steps">
-      <li><h3>Call or book online</h3><p>Tell us what's happening and we'll set a time that works for you.</p></li>
-      <li><h3>We diagnose it</h3><p>We find the cause and call you with the repair and the price. You decide.</p></li>
-      <li><h3>Back on the road</h3><p>We do the approved work, test it, and let you know as soon as it's ready.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="block dark" id="reviews">
-  <div class="wrap center">
-    <span class="eyebrow">Reviews</span>
-    <h2>What Our Customers Say</h2>
-    <div class="big-rating">
-      <strong>4.7</strong>
-      <div><span class="stars" role="img" aria-label="4.7 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><span>Average from 200+ customer reviews</span></div>
-    </div>
-    <div class="reviews" id="review-list"></div>
-    <div class="review-links">
-      <a class="btn btn-go" href="https://www.yelp.com/biz/mbs-auto-center-converse" target="_blank" rel="noopener">Reviews on Yelp</a>
-      <a class="btn btn-outline" href="https://www.facebook.com/p/MBS-Auto-Center-100063732634968/" target="_blank" rel="noopener">Find us on Facebook</a>
-    </div>
-  </div>
-</section>
-
-<section class="block" id="visit">
-  <div class="wrap">
-    <div class="sec-head center">
-      <span class="eyebrow">Visit the shop</span>
-      <h2>Hours & Location</h2>
-    </div>
-    <div class="visit">
-      <div class="visit-box">
-        <h3>Address</h3>
-        <p>9170 FM 78<br>Converse, TX 78109</p>
-        <p style="margin-top:.6rem"><a href="https://www.google.com/maps/dir/?api=1&destination=9170+FM+78+Converse+TX+78109" target="_blank" rel="noopener">Get directions</a></p>
-        <h3>Phone</h3>
-        <p><a href="tel:+12106162037">(210) 616-2037</a></p>
-        <h3>Hours</h3>
-        <table class="hours" id="hours"></table>
-        <h3>Areas we serve</h3>
-        <ul class="area-list">
-          <li>Converse</li><li>Live Oak</li><li>Universal City</li><li>Kirby</li><li>Windcrest</li><li>Schertz</li><li>Cibolo</li><li>Selma</li><li>St. Hedwig</li><li>Randolph AFB</li><li>NE San Antonio</li>
-        </ul>
+  <section id="lights">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><div class="eyebrow">Know your dash</div><h2>What's that<br>light mean?</h2></div>
+        <p>Some lights can wait a day. Some mean pull over now. When in doubt, call us at (210) 616-2037.</p>
       </div>
-      <div class="map"><iframe title="Map to MBS Auto Center" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=MBS+Auto+Center,+9170+FM+78,+Converse,+TX+78109&output=embed"></iframe></div>
+      <div class="lights reveal">
+        <div class="light warn"><span class="badge">Get it checked</span><svg><use href="#i-engine"/></svg><h3>Check engine</h3><p>Steady: book a diagnostic soon. Flashing: stop driving and call. It can damage the catalytic converter.</p></div>
+        <div class="light stop"><span class="badge">Pull over</span><svg><use href="#i-oil"/></svg><h3>Oil pressure</h3><p>Shut the engine off. Driving on low oil pressure can ruin an engine in minutes.</p></div>
+        <div class="light stop"><span class="badge">Pull over</span><svg><use href="#i-temp"/></svg><h3>Engine temp</h3><p>It's overheating. Pull over, let it cool, and never open a hot radiator cap.</p></div>
+        <div class="light warn"><span class="badge">Get it checked</span><svg><use href="#i-battery"/></svg><h3>Battery</h3><p>Your battery or alternator isn't charging. You may not have long before it won't start.</p></div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="block tint" id="faq">
-  <div class="wrap">
-    <div class="sec-head center">
-      <span class="eyebrow">FAQ</span>
-      <h2>Common Questions</h2>
+  <section class="process">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><div class="eyebrow">How it works</div><h2>Simple process.<br>No surprises.</h2></div>
+      </div>
+      <div class="steps reveal">
+        <div class="step"><h3>Call or book</h3><p>Tell us what's going on and we'll set a time that works for you.</p></div>
+        <div class="step"><h3>We diagnose</h3><p>We find the actual cause, not a guess, and figure out what it takes to fix.</p></div>
+        <div class="step"><h3>You approve</h3><p>We call with the repair and the price. Nothing happens until you say yes.</p></div>
+        <div class="step"><h3>Back on the road</h3><p>We do the work, test it, and let you know the moment it's ready.</p></div>
+      </div>
     </div>
-    <div class="faq">
-      <details><summary>My check engine light is on. What should I do?</summary><p>Bring it in. We read the codes and test the system to find the actual cause, then explain the repair and price before any work starts. A flashing check engine light means stop driving and call us.</p></details>
-      <details><summary>Do I need an appointment?</summary><p>Appointments get you in fastest, but you can call (210) 616-2037 and we'll tell you how soon we can look at your vehicle.</p></details>
-      <details><summary>Will you tell me the price before you fix it?</summary><p>Yes. We diagnose first, call you with what we found and what it costs, and only do the work you approve.</p></details>
-      <details><summary>Do you offer a military discount?</summary><p>Yes, ask about our military discount when you call or drop off your vehicle.</p></details>
-      <details><summary>Where are you located?</summary><p>9170 FM 78 in Converse, TX 78109, serving Converse, Live Oak, Universal City, Kirby, Schertz, Randolph AFB and northeast San Antonio.</p></details>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="cta">
-  <div class="wrap">
-    <div>
-      <h2>Car acting up? Let's take a look.</h2>
-      <p>Call MBS Auto Center or request an appointment online.</p>
+  <section id="reviews">
+    <div class="wrap">
+      <div class="reviews-grid">
+        <div class="score reveal">
+          <strong>4.7</strong>
+          <span class="stars" role="img" aria-label="4.7 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+          <p>Average from 200+ customer reviews</p>
+        </div>
+        <div class="reveal">
+          <div class="eyebrow">What customers say</div>
+          <h2 style="font-size:clamp(42px,5.5vw,72px);font-weight:800;margin:14px 0 36px">Converse trusts MBS</h2>
+          <div class="why">
+            <div><h3>Fair prices</h3><p>Customers report saving real money versus other shops.</p></div>
+            <div><h3>Fast work</h3><p>Easy scheduling and quick repairs.</p></div>
+            <div><h3>Friendly service</h3><p>Straight talk in plain English, every time.</p></div>
+            <div><h3>Repeat customers</h3><p>Neighbors keep coming back, year after year.</p></div>
+          </div>
+          <div class="review-links">
+            <a class="btn" href="https://www.yelp.com/biz/mbs-auto-center-converse" target="_blank" rel="noopener">Read reviews on Yelp</a>
+            <a class="btn ghost" href="https://www.facebook.com/p/MBS-Auto-Center-100063732634968/" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+      </div>
+      <div class="review-list" id="review-list"></div>
     </div>
-    <div class="acts">
-      <a class="btn btn-dark" href="tel:+12106162037"><svg><use href="#i-phone"/></svg>(210) 616-2037</a>
-      <a class="btn btn-outline" href="#quote"><svg><use href="#i-cal"/></svg>Book Online</a>
+  </section>
+
+  <section class="visit" id="visit">
+    <div class="wrap area-grid">
+      <div class="reveal">
+        <div class="eyebrow">Visit the shop</div>
+        <h2>Hours &amp;<br>Location</h2>
+        <div class="info">
+          <div>
+            <h3>Address</h3>
+            <p>9170 FM 78<br>Converse, TX 78109</p>
+            <p style="margin-top:10px"><a href="https://www.google.com/maps/dir/?api=1&destination=9170+FM+78+Converse+TX+78109" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:600">Get directions →</a></p>
+            <h3 style="margin-top:26px">Phone</h3>
+            <p><a href="tel:+12106162037">(210) 616-2037</a></p>
+          </div>
+          <div>
+            <h3>Hours</h3>
+            <table class="hours" id="hours"></table>
+          </div>
+        </div>
+        <div class="eyebrow">Areas we serve</div>
+        <div class="cities">
+          <span>Converse</span><span>Live Oak</span><span>Universal City</span><span>Kirby</span><span>Windcrest</span><span>Schertz</span><span>Cibolo</span><span>Selma</span><span>St. Hedwig</span><span>Randolph AFB</span><span>NE San Antonio</span>
+        </div>
+      </div>
+      <div class="map reveal" id="map" role="region" aria-label="Map showing MBS Auto Center in Converse, TX"></div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><div class="eyebrow">FAQ</div><h2>Common questions</h2></div>
+        <p>Don't see yours? Call (210) 616-2037 and ask.</p>
+      </div>
+      <div class="reveal">
+        <details><summary>My check engine light is on. What should I do?</summary><p>Bring it in. We read the codes and test the system to find the actual cause, then explain the repair and price before any work starts. A flashing check engine light means stop driving and call us.</p></details>
+        <details><summary>Do I need an appointment?</summary><p>Appointments get you in fastest, but you can call (210) 616-2037 and we'll tell you how soon we can look at your vehicle.</p></details>
+        <details><summary>Will you tell me the price before you fix it?</summary><p>Yes. We diagnose first, call you with what we found and what it costs, and only do the work you approve.</p></details>
+        <details><summary>Do you offer a military discount?</summary><p>Yes, ask about our military discount when you call or drop off your vehicle.</p></details>
+        <details><summary>Where are you located?</summary><p>9170 FM 78 in Converse, TX 78109, serving Converse, Live Oak, Universal City, Kirby, Schertz, Randolph AFB and northeast San Antonio.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <div class="eyebrow">Book service</div>
+        <h2>Car acting up?</h2>
+        <p>Tell us what's going on and we'll get you scheduled. Prefer to talk? Give us a call.</p>
+        <a class="phone" href="tel:+12106162037">(210) 616-2037</a>
+        <small>9170 FM 78, Converse, TX · <span data-hours-short>Mon–Sat 8am–7pm</span></small>
+        <div class="socials">
+          <a href="https://www.facebook.com/p/MBS-Auto-Center-100063732634968/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a>
+          <a href="sms:+12106162037">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text us</a>
+        </div>
+      </div>
+      <form id="quote" class="reveal" novalidate>
+        <h3>Request service</h3>
+        <div class="row">
+          <label>Name<input name="name" required autocomplete="name"></label>
+          <label>Phone<input name="phone" type="tel" required autocomplete="tel"></label>
+        </div>
+        <div class="row">
+          <label>Vehicle<input name="vehicle" placeholder="e.g. 2016 Silverado"></label>
+          <label>Service
+            <select name="service">
+              <option>Check engine / diagnostics</option><option>Brakes</option><option>Oil change / maintenance</option><option>A/C repair</option><option>Battery / electrical</option><option>Alignment / suspension</option><option>Something else</option>
+            </select></label>
+        </div>
+        <label>What's going on?<textarea name="details" rows="4" placeholder="Noises, warning lights, when it happens…"></textarea></label>
+        <button class="btn" type="submit">Send request</button>
+        <p class="form-note" id="form-note">Opens a text message to MBS with your details filled in.</p>
+      </form>
+    </div>
+  </section>
 </main>
 
-<footer><div class="wrap">
-  <div class="foot">
-    <div>
-      <a class="brand" href="#top"><img src="img/logo.png" alt="MBS Auto Center logo" width="70" height="66"><span>MBS <b>Auto Center</b></span></a>
-      <p>Honest, affordable auto repair in Converse, TX.</p>
+<footer>
+  <div class="wrap foot">
+    <div class="foot-left">
+      <svg role="img" aria-label="MBS Auto Center logo"><use href="#logo"/></svg>
+      <div><strong>MBS Auto Center</strong>9170 FM 78 · Converse, TX 78109<br><a href="tel:+12106162037">(210) 616-2037</a></div>
     </div>
-    <div><h3>Contact</h3><ul>
-      <li><a href="tel:+12106162037">(210) 616-2037</a></li>
-      <li>9170 FM 78<br>Converse, TX 78109</li>
-      <li data-hours-short>Mon–Sat 8am–7pm</li></ul></div>
-    <div><h3>Services</h3><ul>
-      <li><a href="#services">Diagnostics</a></li><li><a href="#services">Brakes</a></li><li><a href="#services">Oil changes</a></li><li><a href="#services">A/C repair</a></li><li><a href="#services">Alignment</a></li></ul></div>
-    <div><h3>Follow us</h3><ul>
-      <li><a href="https://www.facebook.com/p/MBS-Auto-Center-100063732634968/" target="_blank" rel="noopener">Facebook</a></li>
-      <li><a href="https://www.yelp.com/biz/mbs-auto-center-converse" target="_blank" rel="noopener">Yelp</a></li>
-      <li><a href="https://nextdoor.com/pages/mbs-auto-center/" target="_blank" rel="noopener">Nextdoor</a></li></ul></div>
+    <div>© <span id="yr"></span> MBS Auto Center. All rights reserved.</div>
   </div>
-  <p class="legal">© <span id="yr">2026</span> MBS Auto Center. Auto repair in Converse, TX.</p>
-</div></footer>
+</footer>
 
 <nav class="callbar" aria-label="Quick contact">
-  <a href="tel:+12106162037"><svg><use href="#i-phone"/></svg>Call Now</a>
-  <a href="#quote"><svg><use href="#i-cal"/></svg>Book Service</a>
+  <a href="tel:+12106162037"><svg><use href="#i-phone"/></svg>Call now</a>
+  <a href="#contact"><svg><use href="#i-cal"/></svg>Book service</a>
 </nav>
 
 <script>
-document.getElementById('yr').textContent = new Date().getFullYear();
+  document.getElementById('yr').textContent = new Date().getFullYear();
 
-/* HOURS: edit here and the hours table, top bar and footer all update.
-   Use null for closed days. Index 0 = Sunday. */
-var HOURS = [null, ['8am','7pm'], ['8am','7pm'], ['8am','7pm'], ['8am','7pm'], ['8am','7pm'], ['8am','7pm']];
-var HOURS_SHORT = 'Mon–Sat 8am–7pm';
-(function () {
-  var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], today = new Date().getDay(), t = document.getElementById('hours');
-  [1,2,3,4,5,6,0].forEach(function (d) {
-    var tr = t.insertRow(); if (d === today) tr.className = 'today';
-    tr.insertCell().textContent = days[d] + (d === today ? ' (today)' : '');
-    tr.insertCell().textContent = HOURS[d] ? HOURS[d][0] + ' – ' + HOURS[d][1] : 'Closed';
+  const menuBtn = document.getElementById('menuBtn'), links = document.getElementById('links');
+  menuBtn.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
   });
-  document.querySelectorAll('[data-hours-short]').forEach(function (el) { el.textContent = HOURS_SHORT; });
-})();
+  links.addEventListener('click', e => { if (e.target.closest('a')) links.classList.remove('open'); });
 
-/* REVIEWS: paste real customer reviews here, copied from Google, Facebook or Yelp.
-   Example: { name: "First name L.", where: "Google review", stars: 5, text: "What the customer wrote." }, */
-var REVIEWS = [];
-(function () {
-  var list = document.getElementById('review-list');
-  if (!REVIEWS.length) { list.remove(); return; }
-  var star = '<svg><use href="#i-star"/></svg>';
-  REVIEWS.forEach(function (r) {
-    var f = document.createElement('figure'); f.className = 'review';
-    f.innerHTML = '<span class="stars" role="img" aria-label="' + r.stars + ' out of 5 stars">' + star.repeat(r.stars) + '</span><blockquote></blockquote><figcaption></figcaption>';
-    f.querySelector('blockquote').textContent = r.text;
-    var c = f.querySelector('figcaption'); c.textContent = r.name;
-    var s = document.createElement('span'); s.textContent = r.where; c.appendChild(s);
-    list.appendChild(f);
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* HOURS: edit here and the hours table, top bar and contact line all update.
+     null = closed. Index 0 = Sunday. */
+  const HOURS = [null, ['8am','7pm'], ['8am','7pm'], ['8am','7pm'], ['8am','7pm'], ['8am','7pm'], ['8am','7pm']];
+  const HOURS_SHORT = 'Mon–Sat 8am–7pm';
+  (() => {
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], today = new Date().getDay(), t = document.getElementById('hours');
+    [1,2,3,4,5,6,0].forEach(d => {
+      const tr = t.insertRow(); if (d === today) tr.className = 'today';
+      tr.insertCell().textContent = days[d];
+      tr.insertCell().textContent = HOURS[d] ? HOURS[d][0] + ' – ' + HOURS[d][1] : 'Closed';
+    });
+    document.querySelectorAll('[data-hours-short]').forEach(el => el.textContent = HOURS_SHORT);
+  })();
+
+  /* REVIEWS: paste real customer reviews here, copied from Google, Facebook or Yelp.
+     Example: { name: "First name L.", where: "Google review", stars: 5, text: "What the customer wrote." }, */
+  const REVIEWS = [];
+  (() => {
+    const list = document.getElementById('review-list');
+    if (!REVIEWS.length) { list.remove(); return; }
+    const star = '<svg><use href="#i-star"/></svg>';
+    REVIEWS.forEach(r => {
+      const f = document.createElement('figure'); f.className = 'review';
+      f.innerHTML = '<span class="stars" role="img" aria-label="' + r.stars + ' out of 5 stars">' + star.repeat(r.stars) + '</span><blockquote></blockquote><figcaption></figcaption>';
+      f.querySelector('blockquote').textContent = r.text;
+      const c = f.querySelector('figcaption'); c.textContent = r.name;
+      const s = document.createElement('span'); s.textContent = r.where; c.appendChild(s);
+      list.appendChild(f);
+    });
+  })();
+
+  document.getElementById('quote').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = new FormData(e.target), note = document.getElementById('form-note');
+    if (!f.get('name') || !f.get('phone')) {
+      note.textContent = 'Add your name and phone number so we can reach you.'; note.className = 'form-note err';
+      e.target.querySelector(f.get('name') ? '[name=phone]' : '[name=name]').focus(); return;
+    }
+    const body = `Service request from ${f.get('name')} (${f.get('phone')})\nVehicle: ${f.get('vehicle') || '-'}\nNeed: ${f.get('service')}\n${f.get('details') || ''}`;
+    location.href = 'sms:+12106162037?&body=' + encodeURIComponent(body);
+    note.textContent = 'Your messages app should open with the request filled in. On a computer? Call (210) 616-2037.'; note.className = 'form-note';
   });
-})();
-
-// Appointment form. Set FORM_ENDPOINT to a Formspree URL so requests arrive by email.
-// Until then it opens a text message to the shop with the request filled in.
-var FORM_ENDPOINT = '';
-var SHOP_PHONE = '+12106162037';
-var form = document.getElementById('quote'), msg = document.getElementById('form-msg');
-function show(t, err) { msg.textContent = t; msg.className = 'form-msg' + (err ? ' err' : ''); msg.style.display = 'block'; }
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
-  var name = form.name.value.trim(), phone = form.phone.value.trim();
-  if (!name || !phone) { show('Add your name and phone number so we can reach you.', true); (name ? form.phone : form.name).focus(); return; }
-  if (FORM_ENDPOINT) {
-    fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-      .then(function (r) { if (!r.ok) throw 0; form.reset(); show('Request sent. We\'ll call you back soon.'); })
-      .catch(function () { show('That didn\'t go through. Call (210) 616-2037 instead.', true); });
-    return;
-  }
-  var body = 'Service request from ' + name + ' (' + phone + ')\nVehicle: ' + form.vehicle.value + '\nNeed: ' + form.service.value + (form.details.value ? '\n' + form.details.value : '');
-  location.href = 'sms:' + SHOP_PHONE + '?&body=' + encodeURIComponent(body);
-  show('Your messages app should open with the request filled in. Just hit send. On a computer? Call (210) 616-2037.');
-});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+  (function(){
+    if (!window.L) return;
+    const shop = [29.516114, -98.308347];
+    const map = L.map('map', {scrollWheelZoom:false}).setView(shop, 11);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 18, className: 'dark-tiles',
+      attribution: 'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, USGS, &copy; OpenStreetMap contributors'
+    }).addTo(map);
+    const area = L.circle(shop, {radius: 13000, color:'#f2c230', weight:2, dashArray:'6 6', fillColor:'#f2c230', fillOpacity:.07}).addTo(map);
+    [
+      ['Live Oak',29.5652,-98.3364,'left'],['Universal City',29.5480,-98.2911,'right'],['Kirby',29.4630,-98.3856,'left'],
+      ['Schertz',29.5522,-98.2697,'right'],['Windcrest',29.5155,-98.3803,'left'],['Selma',29.5844,-98.3053,'top'],
+      ['Randolph AFB',29.5297,-98.2789,'right'],['St. Hedwig',29.4161,-98.2034,'right']
+    ].forEach(([n,lat,lng,dir]) => {
+      const off = {right:[8,0], left:[-8,0], top:[0,-8], bottom:[0,8]}[dir];
+      L.circleMarker([lat,lng], {radius:5, color:'#fff', weight:2, fillColor:'#fff', fillOpacity:1})
+        .bindTooltip(n, {direction:dir, offset:off, className:'city-label'}).addTo(map);
+    });
+    L.circleMarker(shop, {radius:9, color:'#0f0f0f', weight:3, fillColor:'#f2c230', fillOpacity:1})
+      .bindTooltip('MBS Auto Center', {permanent:true, direction:'top', offset:[0,-10], className:'city-label shop'}).addTo(map);
+    map.fitBounds(area.getBounds(), {padding:[4,4]});
+  })();
 </script>
 </body>
 </html>
